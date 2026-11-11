@@ -84,7 +84,7 @@ Two concrete examples for each of the six required concepts:
 
 These choices fill gaps in the brief; they are not additional assignment requirements.
 
-- This assignment used Python 3.14.8. The tests and Ruff checks passed on that version.
+- Python 3.14.8 is the recommended version for this assignment. All tests and Ruff checks passed on this version.
 - LangGraph and the LangChain OpenAI adapter are used. The model ID comes from your
   environment; choose one available in your account that supports tool calls and
   structured output. No model or API spend is needed for offline checks.
@@ -142,8 +142,7 @@ python -m pip install -e ".[dev,ui]"
 ```
 
 If PowerShell activation is blocked, use `.\.venv\Scripts\python.exe` instead of
-`python` in subsequent commands; no execution-policy change is necessary. The package
-requires Python 3.11 or newer.
+`python` in subsequent commands; no execution-policy change is necessary. 
 
 The editable install includes the CLI, test tools and optional Streamlit UI. From the
 project root, verify the install and run the offline workflow:
