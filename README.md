@@ -1,10 +1,9 @@
 # Hopscotch review moderation — Python hands-on implementation
 
-Build this assignment yourself in VS Code. Start with baseline mode, prove it works,
-then enable the two optional exercises. The accompanying `PYTHON_IMPLEMENTATION_GUIDE.md`
-contains these instructions followed by the complete contents of every source/configuration
-file, in the order to create them. The `reference/` directory is the same implementation
-for comparison. No repository has been initialized, created, committed or pushed.
+Clone this repository to run the complete implementation or use it as a guide for
+the assignment. Start with offline baseline mode, run the tests, then try the two
+optional exercises. The source package, tests, sample data, VS Code configuration,
+and original assignment brief are included in this repository.
 
 ## 1. What you are implementing
 
@@ -85,7 +84,9 @@ Two concrete examples for each of the six required concepts:
 
 These choices fill gaps in the brief; they are not additional assignment requirements.
 
-- Python 3.12 is the tested runtime. The project declares Python 3.11 or newer.
+- Python 3.12 is the recommended setup and the version used for
+  `requirements-lock.txt`. The project declares Python 3.11 or newer; the current
+  checkout also passes its tests and Ruff checks on Python 3.14.8.
 - LangGraph and the LangChain OpenAI adapter are used. The model ID comes from your
   environment; choose one available in your account that supports tool calls and
   structured output. No model or API spend is needed for offline checks.
@@ -111,61 +112,66 @@ These choices fill gaps in the brief; they are not additional assignment require
 - Offline mode is an explicitly scripted simulator for the seven fixtures. Its
   classification and tool choices do not demonstrate LLM reasoning. Live mode uses
   actual model calls for reading, writing, selecting tools and judging answers.
-- No web UI, FastAPI server, vector database, authentication or cloud deployment
-  is required by the brief. Adding those first would delay the assignment's real work.
+- The brief does not require a web UI, FastAPI server, vector database, authentication
+  or cloud deployment. This repository includes an optional Streamlit results viewer;
+  install the `ui` extra to run it.
 
-## 3. Create the VS Code project
+## 3. Clone, install and run
 
-Create a local folder named `hopscotch-review-moderation` and open it in VS Code.
-Install the Microsoft Python and Python Debugger extensions. Create the files using
-the complete file contents later in the full guide, or inspect `reference/` alongside
-your own project as you type. The root is the folder containing `pyproject.toml`.
+Clone the repository and change into its project folder:
 
-Create the folder structure in this order:
+```bash
+git clone https://github.com/Bharath-Bu28/Langgraph_Hopscotch_review-moderation-Assignment.git
+cd Langgraph_Hopscotch_review-moderation-Assignment
+```
 
-1. `src/hopscotch/` with `__init__.py`, `schemas.py`, `privacy.py`.
-2. `src/hopscotch/data/` with `catalog.json`, `reviews.json`, then `catalog.py`.
-3. `tools.py`, `models.py`, `graph.py` inside `src/hopscotch/`.
-4. `service.py`, `cli.py` inside `src/hopscotch/`.
-5. `tests/test_workflow.py`, `.vscode/settings.json`, `.vscode/launch.json`.
-6. Root `pyproject.toml`, `.gitignore`, `.env.example`, `README.md`.
-
-Keep the same spelling for the tool names and graph nodes: the traces and tests use them.
-The complete guide includes a flat path inventory, rather than a diagram of directories.
-
-In a macOS/Linux terminal at the project root:
+Create and activate a virtual environment. On macOS/Linux:
 
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
+python -m pip install -e ".[dev,ui]"
 ```
 
-In Windows PowerShell:
+On Windows PowerShell:
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
+python -m pip install -e ".[dev,ui]"
 ```
 
 If PowerShell activation is blocked, use `.\.venv\Scripts\python.exe` instead of
-`python` in subsequent commands; no execution-policy change is necessary.
+`python` in subsequent commands; no execution-policy change is necessary. Python
+3.12 is recommended (3.11 or newer is required by the package).
 
-After creating `pyproject.toml` and the package files:
+The editable install includes the CLI, test tools and optional Streamlit UI. From the
+project root, verify the install and run the offline workflow:
 
 ```bash
-python -m pip install -e ".[dev]"
+python -m pytest -q
+python -m ruff check src tests
+python -m hopscotch.cli --provider offline --mode base
+python -m streamlit run streamlit_app.py
 ```
 
-In VS Code: Command Palette → **Python: Select Interpreter** → choose `.venv`.
-The source package layout means the editable install is required before imports.
+Streamlit opens the optional results viewer in your browser. The lock file records the
+core and development dependencies, but not the optional UI. To use that pinned
+snapshot, run `python -m pip install -r requirements-lock.txt`, then
+`python -m pip install --no-deps -e ".[dev]"`. Install the viewer separately with
+`python -m pip install -e ".[ui]"`.
+
+Open the project root in VS Code and select `.venv` using **Python: Select Interpreter**.
+The repository includes offline and live launch configurations. Live mode additionally
+requires valid API credentials and can incur charges.
 
 ## 4. Implement in this build order
 
 ### Stage A — state, privacy and data
 
-Create `schemas.py`, `privacy.py`, the two JSON data files and `catalog.py` first.
+Begin by reading `schemas.py`, `privacy.py`, the two JSON data files and `catalog.py`.
 `ReviewInput` validates incoming IDs and text; `ReviewState` describes the internal
 shared dictionary. Pydantic validates external/model data; TypedDict alone does not
 validate graph state at runtime.
@@ -184,7 +190,7 @@ The ranges are inclusive. The `button` complaint must not count as `colour_bleed
 
 ### Stage B — tools and model adapters
 
-Create `tools.py` and `models.py`. The tools close over the catalog; `InjectedState`
+Next inspect `tools.py` and `models.py`. The tools close over the catalog; `InjectedState`
 supplies the current product ID. The model can choose a size but cannot choose
 another review's product ID. Those injected arguments are absent from the tool schema.
 
@@ -193,7 +199,7 @@ another review's product ID. Those injected arguments are absent from the tool s
 
 ### Stage C — baseline graph
 
-Create `graph.py`. Understand these statements before moving on:
+In `graph.py`, understand these statements before moving on:
 
 ```python
 graph.add_conditional_edges("read_review", triage, lane_mapping)
@@ -215,7 +221,7 @@ its stock argument depends on the chart result. The cap remains global during re
 
 ### Stage D — service, persistence and CLI
 
-Create `service.py` and `cli.py`. Always invoke `process_review` for customer input.
+In `service.py` and `cli.py`, follow how `process_review` handles customer input.
 It redacts before graph entry so tracing cannot capture raw phone/email input.
 The first graph node still performs idempotent cleaning, preserving the assignment flow.
 
@@ -226,7 +232,7 @@ exception message is omitted because it may echo private input.
 
 ### Stage E — tests and VS Code debugging
 
-Create the test file and VS Code configuration. Put breakpoints in `triage`,
+The test file and VS Code configuration are included. Put breakpoints in `triage`,
 `count_complaints`, `answer_agent`, and `after_answer`. Select **Hopscotch: offline
 baseline** in Run and Debug, then press F5. Inspect `state`, the latest message's
 `tool_calls`, and `tool_rounds`. The parallel trace entries are not a wall-clock timeline.
@@ -353,10 +359,10 @@ use live mode for new text outside the seven fixtures.
 | Four rounds exceeded | Agent keeps requesting tools | Inspect tool errors and prompt; preserve the cap and hold unresolved cases |
 | R-4 alerts in spike mode | Fraction/percent mismatch or wrong routing | Use `>= 0.12`; verify `spike_rule` controls `write_alert` |
 
-The tested runtime dependencies are pinned in `pyproject.toml`; the development
-dependencies are pinned in its `dev` extra. `requirements-lock.txt` records the
-complete tested dependency snapshot. To reproduce it first install the lock file,
-then install this project with `python -m pip install --no-deps -e .`.
+The runtime dependencies are pinned in `pyproject.toml`, as are the development and
+optional UI dependencies in their extras. `requirements-lock.txt` records the pinned
+core and development dependency snapshot; the optional UI dependencies are installed
+through the `ui` extra.
 
 Before real deployment, replace fixture lookups and the local sink with your actual
 systems, define the moderation/PII policy, evaluate on labeled reviews, and add

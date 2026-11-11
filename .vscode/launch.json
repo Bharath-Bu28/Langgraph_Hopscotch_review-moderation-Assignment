@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Hopscotch: offline baseline",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "hopscotch.cli",
+      "cwd": "${workspaceFolder}",
+      "args": ["--provider", "offline", "--mode", "base"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Hopscotch: live checked",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "hopscotch.cli",
+      "cwd": "${workspaceFolder}",
+      "args": ["--provider", "live", "--mode", "checked"],
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
