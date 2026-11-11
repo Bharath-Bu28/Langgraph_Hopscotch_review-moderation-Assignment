@@ -8,7 +8,8 @@ for comparison. No repository has been initialized, created, committed or pushed
 
 ## 1. What you are implementing
 
-The source is the five-page FDE Academy brief, **Hopscotch: Review Moderation**.
+The source is the five-page FDE Academy brief, **Hopscotch: Review Moderation**
+([open the assignment PDF](./LangGraph_ReviewModeration_Graph_Brief.pdf)).
 It describes a clothing store receiving about 2,000 reviews per day. That is business
 context, not a throughput result demonstrated by this implementation.
 
