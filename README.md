@@ -362,36 +362,9 @@ systems, define the moderation/PII policy, evaluate on labeled reviews, and add
 authorization, monitoring and delivery reliability. This package is a verified
 assignment implementation, not evidence of production readiness or 2,000/day capacity.
 
-## 9. Create and push your GitHub repository yourself
-
-These are instructions for you to execute after reviewing the code. No Git actions
-were performed while preparing this package.
-
-Create an empty GitHub repository. Then run locally from your project folder:
-
-```bash
-git init
-git branch -M main
-git add .
-git status
-git diff --cached --stat
-```
-
-Inspect the staged file list: `.env`, `.venv` and `output/` must be absent. Then:
-
-```bash
-git commit -m "Implement Hopscotch review moderation with LangGraph"
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-git push -u origin main
-```
-
-Replace the placeholders with the repository you created. If that repository
-already contains commits, clone it first and copy your project into that checkout
-instead of creating a second unrelated history. Do not force-push to bypass conflicts.
-
 ## Technical references
 
-- Assignment: FDE Academy, *Hopscotch: Review Moderation*, five pages supplied by you.
+- Assignment: FDE Academy, *Hopscotch: Review Moderation*
 - [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/graph-api)
 - [List-based join semantics](https://reference.langchain.com/python/langgraph/graph/state/StateGraph/add_edge)
 - [ToolNode](https://reference.langchain.com/python/langgraph.prebuilt/tool_node/ToolNode)
