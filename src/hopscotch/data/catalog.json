@@ -1,0 +1,161 @@
+{
+  "as_of": "2026-11-11T12:00:00+00:00",
+  "products": {
+    "P-FABRIC": {
+      "batch_id": "B-1",
+      "vendor_id": "V-1",
+      "care": "Machine wash cold at 30 C with similar colours; do not bleach.",
+      "sizes": [
+        {
+          "label": "3-4Y",
+          "min_cm": 98,
+          "max_cm": 104
+        },
+        {
+          "label": "4-5Y",
+          "min_cm": 105,
+          "max_cm": 110
+        },
+        {
+          "label": "5-6Y",
+          "min_cm": 111,
+          "max_cm": 116
+        }
+      ],
+      "stock": {
+        "3-4Y": 0,
+        "4-5Y": 12,
+        "5-6Y": 5
+      }
+    },
+    "P-DRESS": {
+      "batch_id": "B-2",
+      "vendor_id": "V-2",
+      "care": "Machine wash cold at 30 C with similar colours; do not bleach.",
+      "sizes": [
+        {
+          "label": "3-4Y",
+          "min_cm": 98,
+          "max_cm": 104
+        },
+        {
+          "label": "4-5Y",
+          "min_cm": 105,
+          "max_cm": 110
+        },
+        {
+          "label": "5-6Y",
+          "min_cm": 111,
+          "max_cm": 116
+        }
+      ],
+      "stock": {
+        "3-4Y": 0,
+        "4-5Y": 12,
+        "5-6Y": 5
+      }
+    },
+    "P-SHOES": {
+      "batch_id": "B-3",
+      "vendor_id": "V-3",
+      "care": "Machine wash cold at 30 C with similar colours; do not bleach.",
+      "sizes": [
+        {
+          "label": "3-4Y",
+          "min_cm": 98,
+          "max_cm": 104
+        },
+        {
+          "label": "4-5Y",
+          "min_cm": 105,
+          "max_cm": 110
+        },
+        {
+          "label": "5-6Y",
+          "min_cm": 111,
+          "max_cm": 116
+        }
+      ],
+      "stock": {
+        "3-4Y": 0,
+        "4-5Y": 12,
+        "5-6Y": 5
+      }
+    }
+  },
+  "batches": {
+    "B-1": {
+      "sold": 100,
+      "returned": 16
+    },
+    "B-2": {
+      "sold": 100,
+      "returned": 3
+    },
+    "B-3": {
+      "sold": 100,
+      "returned": 0
+    }
+  },
+  "complaints": [
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-01T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-02T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-03T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-04T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-05T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-11-06T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-DRESS",
+      "topic": "button",
+      "at": "2026-11-01T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "colour_bleed",
+      "at": "2026-09-01T10:00:00+00:00"
+    },
+    {
+      "product_id": "P-FABRIC",
+      "topic": "button",
+      "at": "2026-11-01T10:00:00+00:00"
+    }
+  ],
+  "vendor_alerts": [
+    {
+      "vendor_id": "V-1",
+      "at": "2026-10-01T10:00:00+00:00"
+    },
+    {
+      "vendor_id": "V-1",
+      "at": "2026-09-01T10:00:00+00:00"
+    },
+    {
+      "vendor_id": "V-1",
+      "at": "2026-01-01T10:00:00+00:00"
+    }
+  ]
+}
