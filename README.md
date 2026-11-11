@@ -84,9 +84,7 @@ Two concrete examples for each of the six required concepts:
 
 These choices fill gaps in the brief; they are not additional assignment requirements.
 
-- Python 3.12 is the recommended setup and the version used for
-  `requirements-lock.txt`. The project declares Python 3.11 or newer; the current
-  checkout also passes its tests and Ruff checks on Python 3.14.8.
+- This assignment used Python 3.14.8. The tests and Ruff checks passed on that version.
 - LangGraph and the LangChain OpenAI adapter are used. The model ID comes from your
   environment; choose one available in your account that supports tool calls and
   structured output. No model or API spend is needed for offline checks.
@@ -128,7 +126,7 @@ cd Langgraph_Hopscotch_review-moderation-Assignment
 Create and activate a virtual environment. On macOS/Linux:
 
 ```bash
-python3.12 -m venv .venv
+python3.14 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev,ui]"
@@ -137,15 +135,15 @@ python -m pip install -e ".[dev,ui]"
 On Windows PowerShell:
 
 ```powershell
-py -3.12 -m venv .venv
+py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev,ui]"
 ```
 
 If PowerShell activation is blocked, use `.\.venv\Scripts\python.exe` instead of
-`python` in subsequent commands; no execution-policy change is necessary. Python
-3.12 is recommended (3.11 or newer is required by the package).
+`python` in subsequent commands; no execution-policy change is necessary. The package
+requires Python 3.11 or newer.
 
 The editable install includes the CLI, test tools and optional Streamlit UI. From the
 project root, verify the install and run the offline workflow:
@@ -360,7 +358,7 @@ use live mode for new text outside the seven fixtures.
 | R-4 alerts in spike mode | Fraction/percent mismatch or wrong routing | Use `>= 0.12`; verify `spike_rule` controls `write_alert` |
 
 The runtime dependencies are pinned in `pyproject.toml`, as are the development and
-optional UI dependencies in their extras. `requirements-lock.txt` records the pinned
+optional UI dependencies in their extras. `requirements-lock.txt` records the Python 3.12
 core and development dependency snapshot; the optional UI dependencies are installed
 through the `ui` extra.
 
